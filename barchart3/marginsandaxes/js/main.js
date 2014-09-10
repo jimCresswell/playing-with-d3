@@ -17,7 +17,8 @@ var xAxis = d3.svg.axis()
 
 var yAxis = d3.svg.axis()
     .scale(y)
-    .orient("left");
+    .orient("left")
+    .ticks(10, "%");
 
 var chart = d3.select(".chart")
     .attr("width", width + margin.left + margin.right)
@@ -36,7 +37,13 @@ d3.tsv("data.tsv", type, function(error, data) {
 
   chart.append("g")
       .attr("class", "y axis")
-      .call(yAxis);
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Frequency");
 
   chart.selectAll(".bar")
       .data(data)
